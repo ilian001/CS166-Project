@@ -1,4 +1,4 @@
-CREATE TABLE customer(	CID		INTEGER
+CREATE TABLE customer(	CID		INTEGER NOT NULL,
 			first_name	CHAR(20),
 			last_name	CHAR(20),
 			phone_number	INTEGER
@@ -7,7 +7,7 @@ CREATE TABLE customer(	CID		INTEGER
 			FOREIGN KEY (VIN) REFERENCES cars )
 				
 
-CREATE TABLE cars(	VIN		INTEGER,
+CREATE TABLE cars(	VIN		INTEGER NOT NULL,
 			make		CHAR(20),
 			model		CHAR(20),
 			year		INTEGER,
@@ -20,13 +20,13 @@ CREATE TABLE cars(	VIN		INTEGER,
 
 CREATE TABLE mechanic(	first_name 	CHAR(20),
 			last_name	CHAR(20),
-			employee_id	INTEGER	
+			employee_id	INTEGER NOT NULL,	
 			years_of_exp	INTEGER, 
 			PRIMARY KEY(employee id)
 			FOREIGN KEY(VIN),
 			FOREIGN KEY(SID) )
 				
-CREATE TABLE serviceRequest(	SID			INTEGER,
+CREATE TABLE serviceRequest(	SID			INTEGER NOT NULL,
 				problem 		CHAR(20),
 				bill			INTEGER,
 				odometer_reading	INTEGER,
@@ -38,7 +38,7 @@ CREATE TABLE serviceRequest(	SID			INTEGER,
 				FOREIGN KEY(employee id) REFERENCES Mechanic, 
 				FOREIGN KEY(VIN) REFERENCES Cars ) 
 
-CREATE TABLE checks (	VIN 		INTEGER,
+CREATE TABLE checks (	VIN 		INTEGER NOT NULL,
 			SID		INTEGER, 
 			drop_off 	CHAR(20),
 			PRIMARY KEY(VIN,SID), 
@@ -46,20 +46,20 @@ CREATE TABLE checks (	VIN 		INTEGER,
 			FOREIGN KEY(SID) REFERENCES serviceRequest )
 
 
-CREATE TABLE owns (	CID		INTEGER
-			VIN		INTEGER
-			PRIMARY KEY(CID,VIN)
-			FOREIGN KEY(CID) REFERENCES Customer
+CREATE TABLE owns (	CID		INTEGER NOT NULL,
+			VIN		INTEGER NOT NULL,
+			PRIMARY KEY(CID,VIN),
+			FOREIGN KEY(CID) REFERENCES Customer,
 			FOREIGN KEY(VIN) REFERENCES Cars) 
 
-CREATE TABLE workson (	employeeID 	INTEGER,
-			VIN		INTEGER,
-			PRIMARY KEY(employee id, VIN) 
+CREATE TABLE workson (	employeeID 	INTEGER NOT NULL,
+			VIN		INTEGER NOT NULL,
+			PRIMARY KEY(employee id, VIN), 
 			FOREIGN KEY(employee ID) REFERENCES mechanic,
 			FOREIGN KEY(VIN) REFERENCES cars )
 
-CREATE TABLE creates (	employeeID	INTEGER,
-			SID		INTEGER,
+CREATE TABLE creates (	employeeID	INTEGER NOT NULL,
+			SID		INTEGER NOT NULL,
 			PRIMARY KEY(employeeID, SID),
 			FOREIGN KEY(employeeID) REFERENCES mechanic,
 			FOREIGN KEY(SID) REFERENCES serviceRequest ) 					
