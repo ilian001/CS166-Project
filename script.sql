@@ -4,20 +4,22 @@ DROP TABLE IF EXISTS mechanic CASCADE;
 DROP TABLE IF EXISTS serviceRequest CASCADE;
 DROP TABLE IF EXISTS checks CASCADE;
 DROP TABLE IF EXISTS owns CASCADE;
+DROP TABLE IF EXISTS workson CASCADE;
+DROP TABLE IF EXISTS creates CASCADE;
 
 CREATE TABLE customer(	CID		INTEGER NOT NULL,
 			first_name	CHAR(20),
 			last_name	CHAR(20),
-			phone_number	INTEGER,
+			phone_number	NUMERIC(10,0),
 			address 	CHAR(50),
 			PRIMARY KEY (CID) );
 			--FOREIGN KEY (VIN) REFERENCES cars );
 				
 
-CREATE TABLE cars(	VIN		INTEGER NOT NULL,
+CREATE TABLE cars(	VIN		CHAR(17) NOT NULL,
 			make		CHAR(20),
 			model		CHAR(20),
-			year		INTEGER,
+			year		NUMERIC(4,0),
 			PRIMARY KEY(VIN) );
 			--FOREIGN KEY(CID) REFERENCES customer,
 			--FOREIGN KEY(employee_id) REFERENCES mechanic,
@@ -45,7 +47,7 @@ CREATE TABLE serviceRequest(	SID			INTEGER NOT NULL,
 				--FOREIGN KEY(employee_id) REFERENCES Mechanic, 
 				--FOREIGN KEY(VIN) REFERENCES Cars );
 
-CREATE TABLE checks (	VIN 		INTEGER NOT NULL,
+CREATE TABLE checks (	VIN 		CHAR(20) NOT NULL,
 			SID		INTEGER, 
 			drop_off 	CHAR(20),
 			PRIMARY KEY(VIN,SID) );
@@ -54,13 +56,13 @@ CREATE TABLE checks (	VIN 		INTEGER NOT NULL,
 
 
 CREATE TABLE owns (	CID		INTEGER NOT NULL,
-			VIN		INTEGER NOT NULL,
+			VIN		CHAR(20) NOT NULL,
 			PRIMARY KEY(CID,VIN) );
 			--FOREIGN KEY(CID) REFERENCES Customer,
 			--FOREIGN KEY(VIN) REFERENCES Cars); 
 
 CREATE TABLE workson (	employee_id 	INTEGER NOT NULL,
-			VIN		INTEGER NOT NULL,
+			VIN		CHAR(20) NOT NULL,
 			PRIMARY KEY(employee_id, VIN) ); 
 			--FOREIGN KEY(employee_id) REFERENCES mechanic,
 			--FOREIGN KEY(VIN) REFERENCES cars );
